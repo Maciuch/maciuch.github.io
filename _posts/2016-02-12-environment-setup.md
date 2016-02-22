@@ -65,7 +65,7 @@ On UEFI-based machines:
 #sudo grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
 {% endhighlight %}
 
-After machne reboot you should be able to see the emulated device as /dev/pmem0.
+After machne reboot you should be able to see the emulated device as `/dev/pmem0`.
 If you don't see the device, verify the `memmap` setting correctness, followed by `dmesg(1)` analysis. You should be able to see reserved ranges as shown on the dmesg output snapshot:
 ![dmesg](/assets/dmesg.png)
 
