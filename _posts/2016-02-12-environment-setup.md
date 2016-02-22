@@ -69,7 +69,7 @@ After machne reboot you should be able to see the emulated device as /dev/pmem0.
 If you don't see the device, verify the `memmap` setting correctness, followed by `dmesg(1)` analysis. You should be able to see reserved ranges as shown on the dmesg output snapshot:
 ![dmesg](/assets/dmesg.png)
 
-You can see that there can be multiple non-overlapping regions reserved as a persistent memory. Putting multiple `memmap="...!..."` entries will result in multiple devices exposed by the kernel.
+You can see that there can be multiple non-overlapping regions reserved as a persistent memory. Putting multiple `memmap="...!..."` entries will result in multiple devices exposed by the kernel, and visible as `/dev/pmem0`, `/dev/pmem1`, `/dev/pmem2`, ...
 
 ### DAX - Direct Access
 The DAX (direct access) extensions to the filesystem creates PM-aware environment.
