@@ -8,7 +8,7 @@ Such files can exist on any storage media, however data consistency assurance em
 Depending on platform capabilities, and underlying device where the files are, a different set of commands is used to facilitate synchronisation.
 It might be `msync(2)` for the regular hard drives, or combination of cache flushing instructions followed by memory fence instruction for the real persistent memory.
 
-Although application adaptation to NVML usage, and ability to operate on persistent memory might be done by relying on regular hard drive, it is not recommended due to the performance hit coming from *msync(2)* operation.
+Although application adaptation to NVML usage, and ability to operate on persistent memory might be done by relying on regular hard drive, it is not recommended due to the performance hit coming from `msync(2)` operation.
 That is the reason to work either with the real equipment or emulated environment. Since persistent memory is not yet commonly available we do recommend setting up emulation system, that will speed up development, and testing of the application you are converting. In the following steps we shall cover how to setup such system.
 
 ### Hardware and system requirements
@@ -21,7 +21,7 @@ Support for persistent memory devices and emulation is present in Kernel since 4
 Please note, that features and bug fixes around DAX support are being implemented as we speak, therefore it is recommended to use the newest stable Kernel if possible.
 To configure proper driver installation run `nconfig` and enable driver.
 
-{% highlight sh %}
+{% highlight console %}
 $ make nconfig
 	-> Device Drivers -> NVDIMM Support ->
 			<M>PMEM; <M>BLK; <*>BTT
@@ -29,14 +29,14 @@ $ make nconfig
 
 You are ready to build your Kernel
 
-{% highlight sh %}
+{% highlight console %}
 $ make -jX
 	where X is the number of cores on the machine
 {% endhighlight %}
 
 Install the kernel
 
-{% highlight sh %}
+{% highlight console %}
 # sudo make modules_install install
 {% endhighlight %}
 
@@ -50,14 +50,14 @@ Configuration is done within GRUB, and varies between Linux distributions.
 Here are two examples of GRUB configuration.
 
 Ubuntu Server 15.04
-{% highlight sh linenos %}
+{% highlight console linenos %}
 # sudo vi /etc/default/grub
 GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"
 # sudo update-grub2
 {% endhighlight %}
 
 CentOS 7.0
-{% highlight sh linenos %}
+{% highlight console linenos %}
 # sudo vi /etc/default/grub
 GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"
 On BIOS-based machines:
@@ -78,7 +78,7 @@ Having filesystem brings easy and reliable rights management, while with DAX add
 For those files there is no paging, and load/store operations provide direct access to persistent memory.
 
 Install filesystem with DAX (available today for ext4 and xfs):
-{% highlight sh linenos %}
+{% highlight console linenos %}
 # sudo mkdir /mnt/mem
 # sudo mkfs.ext4 /dev/pmem0    OR    #sudo mkfs.xfs /dev/pmem0
 # sudo mount -o dax /dev/pmem0 /mnt/mem
