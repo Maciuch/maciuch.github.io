@@ -115,13 +115,17 @@ p img {
 
 pre, code {
 	color: #222;
-	background-color: #f8f8c0;
+	background-color:  #f7f9f9;
 	font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console",
 		Terminal, monospace;
 	font-size: 14px;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	white-space:pre;
+	white-space:pre-wrap;
+	word-break:break-all;
+	word-wrap:break-word;
 }
 
 code[data-gist-id] {

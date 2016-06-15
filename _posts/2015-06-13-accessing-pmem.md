@@ -2,6 +2,7 @@
 title: An introduction to pmemobj (part 1) - accessing the persistent memory
 author: pbalcer
 layout: post
+identifier: pmemobj_tutorial_01
 ---
 
 In the previous post, you learned a little bit about the general concept of the persistent memory programming model, now it's time to start the coding ;)
@@ -136,7 +137,7 @@ scanf("%9s", buf);
 We read maximum of 9 bytes to the temporary buffer.
 
 {% highlight C linenos %}
-root->len = strlen(buf);
+rootp->len = strlen(buf);
 pmemobj_persist(pop, &rootp->len, sizeof (rootp->len));
 pmemobj_memcpy_persist(pop, rootp->buf, my_buf, rootp->len);
 {% endhighlight %}
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
 This time when we open the pool, the root object will not be zeroed - it will contain whatever string the writer was tasked with storing. So, to read it:
 
 {% highlight C linenos %}
-if (root->len == strlen(rootp->buf))
+if (rootp->len == strlen(rootp->buf))
 	printf("%s\n", rootp->buf);
 {% endhighlight %}
 
